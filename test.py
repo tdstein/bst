@@ -281,31 +281,31 @@ class DeleteTestCase(TestCase):
         removed = bst.delete(1)
         self.assertFalse(removed)
 
-    def test_left(self):
-        bst = Node(2, left=Node(1))
-        removed = bst.delete(1)
-        self.assertTrue(removed)
-        self.assertEqual(bst, Node(2))
-
     def test_left_subtree(self):
         bst = Node(2, left=Node(1, left=Node(0)))
         removed = bst.delete(1)
         self.assertTrue(removed)
         self.assertEqual(bst, Node(2, left=Node(0)))
 
+    def test_left(self):
+        bst = Node(3, left=Node(2, left=Node(1)))
+        removed = bst.delete(1)
+        self.assertTrue(removed)
+        self.assertEqual(bst, Node(3, left=Node(2)))
+
     def test_right_leaf(self):
         bst = Node(0)
         removed = bst.delete(1)
         self.assertFalse(removed)
-
-    def test_right(self):
-        bst = Node(0, right=Node(1))
-        removed = bst.delete(1)
-        self.assertTrue(removed)
-        self.assertEqual(bst, Node(0))
 
     def test_right_subtree(self):
         bst = Node(0, right=Node(1, right=Node(2)))
         removed = bst.delete(1)
         self.assertTrue(removed)
         self.assertEqual(bst, Node(0, right=Node(2)))
+
+    def test_right(self):
+        bst = Node(-1, right=Node(0, right=Node(1)))
+        removed = bst.delete(1)
+        self.assertTrue(removed)
+        self.assertEqual(bst, Node(-1, right=Node(0)))
